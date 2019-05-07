@@ -8,40 +8,44 @@
     <link rel="stylesheet" href="sass/style.css">
     <title>Rock Paper Scissors</title>
 </head>
-<header>
-    <h1>Rock Paper Scissors</h1>
-</header>
-<div class="players">
-    <div class="player">
-        <h2>Your score</h2>
-        <div class="player-one" id="player-output">0</div>
-    </div>
-    <div class="computer">
-        <h2>Computer's score</h2>
-        <div class="computer-one" id="computer-output">0</div>
-    </div>
-</div>
-<div class="alert">
-    <div class="alerts" id="alert-output"></div>
-</div>
-
-<div class="choices">
-    <div class="selected one" id="rock">
-        <img src="./images/rock.png" alt="">
-    </div>
-    <div class="selected two" id="paper">
-        <img src="./images/paper.png" alt="">
-    </div>
-    <div class="selected three" id="scissors">
-        <img src="./images/scissors.png" alt="">
-    </div>
-</div>
-<div class="btn">
-    <button id="new-game-btn">New Game</button>
-</div>
 
 <body>
+    <header>
+        <h1>Rock Paper Scissors</h1>
+    </header>
+    <div class="players">
+        <div class="player">
+            <h2>Your score</h2>
+            <div class="player-one" id="player-output">0</div>
+        </div>
+        <div class="computer">
+            <h2>Computer's score</h2>
+            <div class="computer-one" id="computer-output">0</div>
+        </div>
+    </div>
+    <div class="alert">
+        <div class="alerts" id="alert-output"></div>
+    </div>
 
+    <div class="choices">
+        <div class="selected one" id="rock-btn">
+            <img src="./images/rock.png" alt="">
+        </div>
+        <div class="selected two" id="paper-btn">
+            <img src="./images/paper.png" alt="">
+        </div>
+        <div class="selected three" id="scissors-btn">
+            <img src="./images/scissors.png" alt="">
+        </div>
+    </div>
+
+    <div class="round" id="rounds-output"></div>
+
+    <div class="btn">
+        <button id="new-game-btn">New Game</button>
+    </div>
+
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
