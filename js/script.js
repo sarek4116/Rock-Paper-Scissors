@@ -5,6 +5,10 @@ var rock = document.getElementById('rock-btn');
 var paper = document.getElementById('paper-btn');
 var scissors = document.getElementById('scissors-btn');
 
+var roundAsk;
+
+var gameStatus = 0;
+
 // OUTPUTS
 
 var alerts = document.getElementById('alert-output');
@@ -39,13 +43,15 @@ function reset() {
 // NEW GAME BUTTON
 
 buttonStart.addEventListener('click', function () {
-    var roundAsk = prompt('How many rounds do you want to play ?');
+    roundAsk = parseInt(prompt('How many rounds do you want to play ?'));
     if (roundAsk > 0) {
+        gameStatus = 1;
         rounds.innerHTML = ('We are playing to ' + roundAsk + ' wins');
     } else {
         alert('Zła wartość !')
     }
     reset();
+
 });
 
 
@@ -68,6 +74,7 @@ function msgRock(random) {
         results.x++
         playerScore.innerHTML = results.x;
     }
+    winner();
 }
 
 // Paper
@@ -83,6 +90,7 @@ function msgPaper(random) {
         results.y++
         computerScore.innerHTML = results.y;
     }
+    winner();
 }
 
 // Scissors
@@ -98,6 +106,7 @@ function msgScissors(random) {
     } else {
         alerts.innerHTML = ('DRAW ! : you played SCISSORS, computer played SCISSORS');
     }
+    winner();
 }
 
 // PLAYER MOVES
@@ -105,19 +114,22 @@ function msgScissors(random) {
 //Rock
 function playerMoveRock() {
     var random = computer();
-    msgRock(random);
+    if (gameStatus === 1)
+        msgRock(random);
 }
 
 //Paper
 function playerMovePaper() {
     var random = computer();
-    msgPaper(random);
+    if (gameStatus === 1)
+        msgPaper(random);
 }
 
 //Scissors 
 function playerMoveScissors() {
     var random = computer();
-    msgScissors(random);
+    if (gameStatus === 1)
+        msgScissors(random);
 }
 
 // ROCK BUTTON
@@ -142,20 +154,16 @@ scissors.addEventListener('click', function () {
 // FUNCTION WHICH DISABLED AND ENABLED BUTTONS 
 
 function buttonDisable() {
-    rock.disabled = true;
-    paper.disabled = true;
-    scissors.disabled = true;
+    gameStatus = 0;
 }
 
 function buttonEnabled() {
-    rock.disabled = false;
-    paper.disabled = false;
-    scissors.disabled = false;
+    gameStatus = 1
 }
 
 // WINNER FUNCTION 
 
-function winner(roundAsk) {
+function winner() {
     if (results.x === roundAsk) {
         alerts.innerHTML = ("YOU WON THE ENTIRE GAME!!!")
         buttonDisable();
