@@ -1,13 +1,11 @@
 // BUTTONS
 
 var buttonStart = document.getElementById('new-game-btn');
-var rock = document.getElementById('rock-btn');
-var paper = document.getElementById('paper-btn');
-var scissors = document.getElementById('scissors-btn');
+var choicesBtn = document.querySelector('div + .choices')
 
-var roundAsk;
-
+// GLOBAL VARIABLES
 var gameStatus = 0;
+var roundAsk;
 
 // OUTPUTS
 
@@ -51,7 +49,6 @@ buttonStart.addEventListener('click', function () {
         alert('Zła wartość !')
     }
     reset();
-
 });
 
 
@@ -61,95 +58,35 @@ function computer() {
     return Math.floor(Math.random() * 3) + 1;
 }
 
-// Rock
-function msgRock(random) {
-    if (random === 1) {
-        alerts.innerHTML = ('YOU LOSE ! : you played ROCK, computer played PAPER');
+// MAIN CHOICE'S FUNCTION
+
+var playerChoice;
+var computerChoice;
+
+choicesBtn.addEventListener("click", function (event) {
+    if (event.target.tagName === 'IMG' && gameStatus === 1) {
+        computerChoice = computer();
+        playerChoice = event.target.dataset.index
+        msgChoices();
+    }
+})
+
+// FUNCTION WHICH INFORM ABOUT ROUND WINNER
+
+function msgChoices() {
+    if (playerChoice == computerChoice) {
+        alerts.innerHTML = ('DRAW ! : You played the same as the computer');
+    } else if ((playerChoice == 1 && computerChoice == 2) || (playerChoice == 2 && computerChoice == 3) || (playerChoice == 3 && computerChoice == 1)) {
+        alerts.innerHTML = ('You lose round !')
         results.y++
         computerScore.innerHTML = results.y;
-    } else if (random === 2) {
-        alerts.innerHTML = ('DRAW ! : you played ROCK, computer played ROCK');
     } else {
-        alerts.innerHTML = ('YOU WON ! : you played ROCK, computer played SCISSORS');
+        alerts.innerHTML = ('You win round !')
         results.x++
         playerScore.innerHTML = results.x;
     }
     winner();
 }
-
-// Paper
-function msgPaper(random) {
-    if (random === 1)
-        alerts.innerHTML = ('DRAW ! : you played PAPER, computer played PAPER' + '<br>');
-    else if (random === 2) {
-        alerts.innerHTML = ('YOU WON ! : you played PAPER, computer played ROCK' + '<br>');
-        results.x++
-        playerScore.innerHTML = results.x;
-    } else {
-        alerts.innerHTML = ('YOU LOSE ! : you played PAPER, computer played SCISSORS' + '<br>');
-        results.y++
-        computerScore.innerHTML = results.y;
-    }
-    winner();
-}
-
-// Scissors
-function msgScissors(random) {
-    if (random === 1) {
-        alerts.innerHTML = ('YOU WON ! : you played SCISSORS, computer played PAPER');
-        results.x++
-        playerScore.innerHTML = results.x;
-    } else if (random === 2) {
-        alerts.innerHTML = ('YOU LOSE ! : you played SCISSORS, computer played ROCK');
-        results.y++
-        computerScore.innerHTML = results.y;
-    } else {
-        alerts.innerHTML = ('DRAW ! : you played SCISSORS, computer played SCISSORS');
-    }
-    winner();
-}
-
-// PLAYER MOVES
-
-//Rock
-function playerMoveRock() {
-    var random = computer();
-    if (gameStatus === 1)
-        msgRock(random);
-}
-
-//Paper
-function playerMovePaper() {
-    var random = computer();
-    if (gameStatus === 1)
-        msgPaper(random);
-}
-
-//Scissors 
-function playerMoveScissors() {
-    var random = computer();
-    if (gameStatus === 1)
-        msgScissors(random);
-}
-
-// ROCK BUTTON
-
-rock.addEventListener('click', function () {
-    playerMoveRock();
-})
-
-// PAPER BUTTON
-
-paper.addEventListener('click', function () {
-    playerMovePaper();
-})
-
-// SCISSORS BUTTON
-
-scissors.addEventListener('click', function () {
-    playerMoveScissors();
-})
-
 
 // FUNCTION WHICH DISABLED AND ENABLED BUTTONS 
 
