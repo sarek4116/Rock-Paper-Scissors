@@ -27,10 +27,10 @@
         <div class="alerts" id="alert-output"></div>
     </div>
 
-    <div class="choices" id = "choice">
+    <div class="choices" id="choice">
         <div class="selected one" id="btn">
             <img data-index="1" src="./images/rock.png" alt="">
-      </div>
+        </div>
         <div class="selected two" id="btn">
             <img data-index="2" src="./images/paper.png" alt="">
         </div>
@@ -44,6 +44,31 @@
     <div class="btn">
         <button id="new-game-btn">New Game</button>
     </div>
+    <div id="modal-1" class="modal show">
+        <div class="modal-body">
+            <div class="output-winner" id="modal-output"></div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Round Number</th>
+                        <th>Player Move</th>
+                        <th>Computer Move</th>
+                        <th>Round Winner</th>
+                        <th>Score</th>
+                    </tr>
+                    <tr>
+                        <td id="round"></td>
+                        <td id="player-move"></td>
+                        <td id="computer-move"></td>
+                        <td id="round-winner"></td>
+                        <td id="score"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     <script src="./js/script.js"></script>
 </body>

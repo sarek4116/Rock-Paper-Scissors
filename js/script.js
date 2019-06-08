@@ -13,6 +13,15 @@ var alerts = document.getElementById('alert-output');
 var playerScore = document.getElementById('player-output')
 var computerScore = document.getElementById('computer-output');
 var rounds = document.getElementById('rounds-output');
+var gameScore = document.querySelector('#modal-output');
+
+// MODAL OUTPUTS
+
+var round = document.querySelector('#round');
+var playerMove = document.querySelector('#player-move');
+var computerMove = document.querySelector('#computer-move');
+var roundWinner = document.querySelector('#round-winner');
+var score = document.querySelector('#score');
 
 // RESULT 
 
@@ -20,6 +29,20 @@ var results = {
     x: 0,
     y: 0,
 }
+
+var progress = {
+    Round: 0,
+    PlayerMove: '',
+    ComputerMove: '',
+    RoundWinner: '',
+    Score: 0,
+}
+
+round.innerHTML = progress.Round;
+playerMove.innerHTML = progress.PlayerMove;
+computerMove.innerHTML = progress.ComputerMove;
+roundWinner.innerHTML = progress.RoundWinner;
+score.innerHTML = progress.Score;
 
 playerScore.innerHTML = results.x;
 computerScore.innerHTML = results.y;
@@ -68,6 +91,7 @@ choicesBtn.addEventListener("click", function (event) {
         computerChoice = computer();
         playerChoice = event.target.dataset.index
         msgChoices();
+        gameProgress();
     }
 })
 
@@ -88,6 +112,36 @@ function msgChoices() {
     winner();
 }
 
+
+function gameProgress() {
+    if (playerChoice == computerChoice) {
+        progress.Round++
+        round.innerHTML = progress.Round;
+    } else if (playerChoice == 1 && computerChoice == 2) {
+        playerMove.innerHTML = ('Rock');
+        computerMove.innerHTML = ('Paper');
+        roundWinner.innerHTML = ('Computer');
+        progress.Round++
+        round.innerHTML = progress.Round;
+    } else if (playerChoice == 2 && computerChoice == 3) {
+        playerMove.innerHTML = ('Paper');
+        computerMove.innerHTML = ('Scissors');
+        roundWinner.innerHTML = ('Player');
+        progress.Round++
+        round.innerHTML = progress.Round;
+    } else if (playerChoice == 3 && computerChoice == 1) {
+        playerMove.innerHTML = ('Scissors');
+        computerMove.innerHTML = ('Rock');
+        roundWinner.innerHTML = ('Computer');
+        progress.Round++
+        round.innerHTML = progress.Round;
+    } else {
+        progress.Round++
+        round.innerHTML = progress.Round;
+        roundWinner.innerHTML = ('Player');
+    }
+}
+
 // FUNCTION WHICH DISABLED AND ENABLED BUTTONS 
 
 function buttonDisable() {
@@ -102,10 +156,30 @@ function buttonEnabled() {
 
 function winner() {
     if (results.x === roundAsk) {
-        alerts.innerHTML = ("YOU WON THE ENTIRE GAME!!!")
+        document.querySelector('#modal-1').classList.add('show');
+        gameScore.innerHTML = ("YOU WON THE ENTIRE GAME!!!")
         buttonDisable();
     } else if (results.y === roundAsk) {
-        alerts.innerHTML = ("YOU LOSE THE ENTIRE GAME!!!")
+        document.querySelector('#modal-1').classList.add('show');
+        gameScore.innerHTML = ("YOU LOSE THE ENTIRE GAME!!!")
         buttonDisable();
     }
 }
+
+// Modal
+
+function closeModal() {
+    document.getElementById('modal-1').classList.remove('show')
+}
+
+document.querySelector('#modal-1').addEventListener('click', function (e) {
+    if (e.target === this) {
+        closeModal();
+    }
+})
+
+document.addEventListener('keyup', function (e) {
+    if (e.keyCode === 27) {
+        closeModal();
+    }
+})
