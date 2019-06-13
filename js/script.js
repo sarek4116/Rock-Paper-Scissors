@@ -15,13 +15,6 @@ var computerScore = document.getElementById('computer-output');
 var rounds = document.getElementById('rounds-output');
 var gameScore = document.querySelector('#modal-output');
 
-// MODAL OUTPUTS
-
-var round = document.querySelector('#round');
-var playerMove = document.querySelector('#player-move');
-var computerMove = document.querySelector('#computer-move');
-var roundWinner = document.querySelector('#round-winner');
-var score = document.querySelector('#score');
 
 // RESULT 
 
@@ -30,19 +23,8 @@ var results = {
     y: 0,
 }
 
-var progress = {
-    Round: 0,
-    PlayerMove: '',
-    ComputerMove: '',
-    RoundWinner: '',
-    Score: 0,
-}
+var progress = []
 
-round.innerHTML = progress.Round;
-playerMove.innerHTML = progress.PlayerMove;
-computerMove.innerHTML = progress.ComputerMove;
-roundWinner.innerHTML = progress.RoundWinner;
-score.innerHTML = progress.Score;
 
 playerScore.innerHTML = results.x;
 computerScore.innerHTML = results.y;
@@ -55,6 +37,7 @@ function reset() {
         x: 0,
         y: 0,
     }
+    progress = []
 
     playerScore.innerHTML = results.x;
     computerScore.innerHTML = results.y;
@@ -91,7 +74,7 @@ choicesBtn.addEventListener("click", function (event) {
         computerChoice = computer();
         playerChoice = event.target.dataset.index
         msgChoices();
-        gameProgress();
+        addRoundInfo();
     }
 })
 
@@ -113,34 +96,8 @@ function msgChoices() {
 }
 
 
-function gameProgress() {
-    if (playerChoice == computerChoice) {
-        progress.Round++
-        round.innerHTML = progress.Round;
-    } else if (playerChoice == 1 && computerChoice == 2) {
-        playerMove.innerHTML = ('Rock');
-        computerMove.innerHTML = ('Paper');
-        roundWinner.innerHTML = ('Computer');
-        progress.Round++
-        round.innerHTML = progress.Round;
-    } else if (playerChoice == 2 && computerChoice == 3) {
-        playerMove.innerHTML = ('Paper');
-        computerMove.innerHTML = ('Scissors');
-        roundWinner.innerHTML = ('Player');
-        progress.Round++
-        round.innerHTML = progress.Round;
-    } else if (playerChoice == 3 && computerChoice == 1) {
-        playerMove.innerHTML = ('Scissors');
-        computerMove.innerHTML = ('Rock');
-        roundWinner.innerHTML = ('Computer');
-        progress.Round++
-        round.innerHTML = progress.Round;
-    } else {
-        progress.Round++
-        round.innerHTML = progress.Round;
-        roundWinner.innerHTML = ('Player');
-    }
-}
+
+
 
 // FUNCTION WHICH DISABLED AND ENABLED BUTTONS 
 
@@ -156,15 +113,36 @@ function buttonEnabled() {
 
 function winner() {
     if (results.x === roundAsk) {
+        tableGeneration();
         document.querySelector('#modal-1').classList.add('show');
         gameScore.innerHTML = ("YOU WON THE ENTIRE GAME!!!")
         buttonDisable();
     } else if (results.y === roundAsk) {
+        tableGeneration();
         document.querySelector('#modal-1').classList.add('show');
         gameScore.innerHTML = ("YOU LOSE THE ENTIRE GAME!!!")
         buttonDisable();
     }
 }
+
+function addRoundInfo() {
+    progress.push({
+        PlayerMove: playerChoice,
+        ComputerMove: computerChoice,
+        Score: results
+    })
+}
+
+function tableGeneration() {
+    var tbody = '';
+
+    for (var i = 0; i < progress.length; i++) {
+
+        tbody = tbody + "<tr><td>" + (i + 1) + "</td><td>" + progress[i].PlayerMove + "</td><td>" + progress[i].ComputerMove + "</td><td>" + progress[i].Score.x + ":" + progress[i].Score.y + "</td></tr>"
+    }
+    document.querySelector('#modal-table tbody').innerHTML = tbody;
+}
+
 
 // Modal
 

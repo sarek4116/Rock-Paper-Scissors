@@ -200,19 +200,16 @@ header h1 {
 }
 
 .modal .modal-body table {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   font-size: 18px;
   padding: 20px;
 }
 
 .modal .modal-body table tr th {
   padding: 15px;
+}
+
+.modal .modal-body table tbody tr {
+  border: 1px solid #70c6e3;
 }
 
 .modal:not(.show) {

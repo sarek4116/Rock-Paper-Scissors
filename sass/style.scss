@@ -163,16 +163,23 @@ header {
         }
 
         table {
-            display: flex;
-            flex-direction: column;
+
             font-size: 18px;
             padding: 20px;
 
             tr {
+
                 th {
                     padding: 15px;
                 }
             }
+
+            tbody {
+                tr {
+                    border: 1px solid #70c6e3;
+                }
+            }
+
         }
     }
 }
