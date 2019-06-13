@@ -23,6 +23,12 @@ var results = {
     y: 0,
 }
 
+var compChoices = {
+    move1: 'Rock',
+    move2: 'Paper',
+    move3: 'Scissors'
+}
+
 var progress = []
 
 
@@ -36,6 +42,11 @@ function reset() {
     results = {
         x: 0,
         y: 0,
+    }
+    compChoices = {
+        move1: 'Rock',
+        move2: 'Paper',
+        move3: 'Scissors'
     }
     progress = []
 
@@ -61,7 +72,13 @@ buttonStart.addEventListener('click', function () {
 // FUNCTION WHICH RETURN RANDOM VALUE
 
 function computer() {
-    return Math.floor(Math.random() * 3) + 1;
+    var move = Math.floor(Math.random() * 3) + 1;
+    if (move == 1)
+        return compChoices.move1
+    else if (move == 2)
+        return compChoices.move2
+    else
+        return compChoices.move3
 }
 
 // MAIN CHOICE'S FUNCTION
@@ -83,7 +100,7 @@ choicesBtn.addEventListener("click", function (event) {
 function msgChoices() {
     if (playerChoice == computerChoice) {
         alerts.innerHTML = ('DRAW ! : You played the same as the computer');
-    } else if ((playerChoice == 1 && computerChoice == 2) || (playerChoice == 2 && computerChoice == 3) || (playerChoice == 3 && computerChoice == 1)) {
+    } else if ((playerChoice == 'Rock' && computerChoice == 'Paper') || (playerChoice == 'Paper' && computerChoice == 'Scissors') || (playerChoice == 'Scissors' && computerChoice == 'Rock')) {
         alerts.innerHTML = ('You lose round !')
         results.y++
         computerScore.innerHTML = results.y;
@@ -94,7 +111,6 @@ function msgChoices() {
     }
     winner();
 }
-
 
 
 
@@ -135,9 +151,7 @@ function addRoundInfo() {
 
 function tableGeneration() {
     var tbody = '';
-
     for (var i = 0; i < progress.length; i++) {
-
         tbody = tbody + "<tr><td>" + (i + 1) + "</td><td>" + progress[i].PlayerMove + "</td><td>" + progress[i].ComputerMove + "</td><td>" + progress[i].Score.x + ":" + progress[i].Score.y + "</td></tr>"
     }
     document.querySelector('#modal-table tbody').innerHTML = tbody;
